@@ -1,0 +1,61 @@
+﻿@model IEnumerable <TietoApp.Models.Book>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model){
+
+        <tr>
+
+            <td>
+                @Html.Encode(item.Rank)
+                @*<%= Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
+
+        <%= Html.ActionLink("Details", "Details", new { id=item.Id })%>*@
+
+            </td>
+
+            <td>
+
+                @*<%= Html.Encode(item.Id) %>*@
+
+            </td>
+
+            <td>
+
+                @*<%= Html.Encode(item.Title) %>*@
+
+            </td>
+
+            <td>
+
+                @*<%= Html.Encode(item.Director) %>*@
+
+            </td>
+
+            <td>
+
+                @*<%= Html.Encode(String.Format("{0:g}", item.DateReleased)) %>*@
+
+            </td>
+
+        </tr>
+
+        }
+    </tbody>
+    
+
+</table> 
