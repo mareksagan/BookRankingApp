@@ -53,13 +53,13 @@
             </td>
 
             <td class="favorite">
-                @if (Request.Cookies[item.Rank.ToString()] == null)
+                @if (Request.Cookies["like-cookie-" + item.Rank.ToString()] == null)
                 {
                     <span class="glyphicon glyphicon-star-empty favorite-button" aria-hidden="true" />
                 }
                 else
                 {
-                    string cookieValue = Request.Cookies[item.Rank.ToString()].Value;
+                    string cookieValue = Request.Cookies["like-cookie-" + item.Rank.ToString()].Value;
 
                     if (cookieValue == "true")
                     {

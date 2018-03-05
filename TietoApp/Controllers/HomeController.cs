@@ -65,6 +65,7 @@ namespace TietoApp.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
+
             return View(books.ToPagedList(pageNumber, pageSize));
         }
 
