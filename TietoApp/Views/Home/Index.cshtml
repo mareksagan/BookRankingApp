@@ -27,33 +27,50 @@
 
         <tr>
 
-            <td>
+            <td class="rank">
                 @Html.Encode(item.Rank)
             </td>
 
-            <td>
+            <td class="img-url">
                 <img src="@Html.Raw(item.ImageUrl)" height="50"/>
             </td>
 
-            <td>
+            <td class="title">
                 @Html.Encode(item.Title)
             </td>
 
-            <td>
+            <td class="author">
                 @Html.Encode(item.Author)
             </td>
 
-            <td>
+            <td class="desc">
                 @Html.Raw(item.Description)
             </td>
 
-            <td>
+            <td class="move">
                 <span class="glyphicon glyphicon-arrow-up move-up" aria-hidden="true"/>
                 <span class="glyphicon glyphicon-arrow-down move-down" aria-hidden="true"/>
             </td>
 
-            <td>
-                <span class="glyphicon glyphicon-star-empty favorite-button" aria-hidden="true"/>
+            <td class="favorite">
+                @if (Request.Cookies[item.Rank.ToString()] == null)
+                {
+                    <span class="glyphicon glyphicon-star-empty favorite-button" aria-hidden="true" />
+                }
+                else
+                {
+                    string cookieValue = Request.Cookies[item.Rank.ToString()].Value;
+
+                    if (cookieValue == "true")
+                    {
+                        <span class="glyphicon glyphicon-star favorite-button" aria-hidden="true" />
+                    }
+                    else if (cookieValue == "false")
+                    {
+                        <span class="glyphicon glyphicon-star-empty favorite-button" aria-hidden="true" />
+                    }
+                }
+                
             </td>
 
         </tr>
@@ -64,6 +81,3 @@
 </table>
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new { sortOrder = ViewBag.CurrentSort, page }))
-
-@*
-    //•	Order of books and favorite settings should be saved to the cookie and restored when page is refreshed*@

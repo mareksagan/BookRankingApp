@@ -68,16 +68,5 @@ namespace TietoApp.Controllers
             return View(books.ToPagedList(pageNumber, pageSize));
         }
 
-        public void favoriteBook(Dictionary<string, bool> favoriteBooks, string title)
-        {
-            if (favoriteBooks[title].Equals(null) && favoriteBooks[title].Equals(false))
-            {
-                favoriteBooks[title] = true;
-            }
-            else if (favoriteBooks[title].Equals(true))
-            {
-                favoriteBooks[title] = false;
-            }
-        }
 }
 }
