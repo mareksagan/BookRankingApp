@@ -1,61 +1,69 @@
-﻿@model IEnumerable <TietoApp.Models.Book>
+﻿@model PagedList.IPagedList<TietoApp.Models.Book>
+@using PagedList.Mvc;
+
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Books";
 }
 
 <table class="table">
     <thead>
         <tr>
-            <th>Rank</th>
+            <th>
+                @Html.ActionLink("Rank", "Index", "Home", new { sortOrder = "rank" }, "")
+            </th>
             <th>Image</th>
-            <th>Title</th>
-            <th>Author</th>
+            <th>@Html.ActionLink("Title", "Index", "Home", new { sortOrder = "title" }, "")</th>
+            <th>@Html.ActionLink("Author", "Index", "Home", new { sortOrder = "author" }, "")</th>
             <th>Description</th>
+            <th>Position</th>
+            <th>Favorite</th>
         </tr>
     </thead>
 
     <tbody>
 
-        @foreach (var item in Model){
+        @foreach (var item in Model)
+        {
 
         <tr>
 
             <td>
                 @Html.Encode(item.Rank)
-                @*<%= Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
-
-        <%= Html.ActionLink("Details", "Details", new { id=item.Id })%>*@
-
             </td>
 
             <td>
-
-                @*<%= Html.Encode(item.Id) %>*@
-
+                <img src="@Html.Raw(item.ImageUrl)" height="50"/>
             </td>
 
             <td>
-
-                @*<%= Html.Encode(item.Title) %>*@
-
+                @Html.Encode(item.Title)
             </td>
 
             <td>
-
-                @*<%= Html.Encode(item.Director) %>*@
-
+                @Html.Encode(item.Author)
             </td>
 
             <td>
+                @Html.Raw(item.Description)
+            </td>
 
-                @*<%= Html.Encode(String.Format("{0:g}", item.DateReleased)) %>*@
+            <td>
+                <span class="glyphicon glyphicon-arrow-up move-up" aria-hidden="true"/>
+                <span class="glyphicon glyphicon-arrow-down move-down" aria-hidden="true"/>
+            </td>
 
+            <td>
+                <span class="glyphicon glyphicon-star-empty favorite-button" aria-hidden="true"/>
             </td>
 
         </tr>
 
         }
     </tbody>
-    
 
-</table> 
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { sortOrder = ViewBag.CurrentSort, page }))
+
+@*
+    //•	Order of books and favorite settings should be saved to the cookie and restored when page is refreshed*@

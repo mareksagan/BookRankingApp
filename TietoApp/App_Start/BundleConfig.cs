@@ -23,8 +23,13 @@ namespace TietoApp
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/Scripts").Include(
+                      "~/Scripts/Site.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.paper.css",
+                      "~/Content/PagedList.css",
                       "~/Content/site.css"));
         }
     }
