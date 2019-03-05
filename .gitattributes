@@ -62,5 +62,6 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 
+# GitHub language detection
  *.* linguist-language=C#
  
