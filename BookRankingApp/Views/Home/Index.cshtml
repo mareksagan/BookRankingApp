@@ -1,0 +1,83 @@
+﻿@model PagedList.IPagedList<BookRankingApp.Models.Book>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Books";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Rank", "Index", "Home", new { sortOrder = "rank" }, "")
+            </th>
+            <th>Image</th>
+            <th>@Html.ActionLink("Title", "Index", "Home", new { sortOrder = "title" }, "")</th>
+            <th>@Html.ActionLink("Author", "Index", "Home", new { sortOrder = "author" }, "")</th>
+            <th>Description</th>
+            <th>Position</th>
+            <th>Favorite</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+
+        <tr>
+
+            <td class="rank">
+                @Html.Encode(item.Rank)
+            </td>
+
+            <td class="img-url">
+                <img src="@Html.Raw(item.ImageUrl)" height="50"/>
+            </td>
+
+            <td class="title">
+                @Html.Encode(item.Title)
+            </td>
+
+            <td class="author">
+                @Html.Encode(item.Author)
+            </td>
+
+            <td class="desc">
+                @Html.Raw(item.Description)
+            </td>
+
+            <td class="move">
+                <span class="glyphicon glyphicon-arrow-up move-up" aria-hidden="true"/>
+                <span class="glyphicon glyphicon-arrow-down move-down" aria-hidden="true"/>
+            </td>
+
+            <td class="favorite">
+                @if (Request.Cookies["like-cookie-" + item.Rank.ToString()] == null)
+                {
+                    <span class="glyphicon glyphicon-star-empty favorite-button" aria-hidden="true" />
+                }
+                else
+                {
+                    string cookieValue = Request.Cookies["like-cookie-" + item.Rank.ToString()].Value;
+
+                    if (cookieValue == "true")
+                    {
+                        <span class="glyphicon glyphicon-star favorite-button" aria-hidden="true" />
+                    }
+                    else if (cookieValue == "false")
+                    {
+                        <span class="glyphicon glyphicon-star-empty favorite-button" aria-hidden="true" />
+                    }
+                }
+                
+            </td>
+
+        </tr>
+
+        }
+    </tbody>
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { sortOrder = ViewBag.CurrentSort, page }))
